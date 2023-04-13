@@ -1,0 +1,142 @@
+# Introduction to R
+
+## R as a printer
+print("Hello World!")
+
+## R as a calculator
+1 + 2
+37 * 496
+2^10
+2**10
+
+#############################
+## Objects
+### Reminder: R is Object Oriented. 
+
+## Simple objects
+a <- 260
+a*2
+a = 260
+
+### Could you describe what happens in these two lines above?
+
+## Works with characters
+a <- "hola"
+a
+a <- 'hola'
+
+## Vectors
+b <- c(12, 8, 17)
+b
+b <- c(12, 8, 'hola')
+
+
+c <- 1:10 #Can you describe what we are doing?
+c <- 5:675
+
+## Matrixes 
+d <- matrix(data = 1:9, nrow = 3, ncol= 3)
+d
+
+d <- matrix(data = 1:9, nrow = 3, ncol= 3, byrow = T)
+d
+
+d <- matrix(data = c(1:8, 'hello'), nrow = 3, ncol= 3, byrow = T)
+d
+
+
+## dataframes
+e <- data.frame(name=c("alice", NA, "carol"), age= 4:6, stringsAsFactors = F)
+class(e$name)
+e$name
+
+## lists
+f <- list(name = "alice", age= 4, food= c("carrots", "pizza"))
+f$food
+f[[3]]
+f[['food']]
+
+###################################
+## Operations on objects
+### Create an object that takes every integer from 3 to 10, call it g
+g <- 3:10
+g <- c(3,4,5,6,7,8,9,10)
+
+### Multiply g by 2
+g <- 2 * g
+### Print g
+g
+
+## Functions can be applied to an object
+sum_g <- sum(g)
+
+### Apply the function head to the 'iris' dataset
+head(iris)
+### Apply the function  str() to iris
+str(iris)
+
+###Apply the function dim(), tail(), summary() to iris. Describe what they do
+dim(iris) # Gives the dimension of a dataset
+tail(iris) # Gives the last 6 rows of a dataset
+summary(iris) # Provides a few descriptive statistics about a dataset
+
+###But what is iris by the way?
+?iris # A famous dataset created by I. Fisher on 150 irises, on 3 variable. 
+
+### Calculate the mean of the Sepal.Width
+mean.sepal.width = mean(iris$Sepal.Width)
+rm(mean.sepal.width)
+
+####################################
+## Operations on a vector
+h <- c(1:20)
+h
+
+###Select the first element
+h[1]
+
+###Select the second element
+h[2]
+h[c(1,5)]
+
+###Replace the first element by a '3'
+h[1] <- 3
+h
+### Print elements from 3 to 5
+h[3:5]
+
+
+####################################
+## Import, export data
+data(iris)
+
+getwd()
+write.csv(iris, "iris-file.csv", row.names = FALSE) # Go find it on your disk
+
+iris <- read.csv("iris-file.csv") # reimport it! 
+head(iris)
+
+###########
+#Indexing (hard at first, but easy later, and central)
+# Select all irises whose Sepal.Length > 5
+head(iris)
+# 1. Create the condition 
+iris$Sepal.Length > 5
+## This creates a vector of iris with TRUE (when matching the condition), False otherwise
+
+# 2. Use this vector as index in the rows
+long_sepal <- iris[iris$Sepal.Length > 5, ]
+dim(long_sepal)
+
+#Keep in mind that df[,] helps you select data
+#df[2,5] selects what is at the intersection of line 2 and column 5
+
+# Select only setosa species
+table(iris$Species)
+iris2 <- iris[iris$Species == "setosa", ]
+dim(iris2)
+
+#Try to write one with two conditions
+two_cond <- iris[(iris$Species == "setosa") & (iris$Sepal.Length > 5), 'Petal.Length']
+dim(two_cond)
+########################### THE END ###
